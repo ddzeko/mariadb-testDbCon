@@ -44,7 +44,7 @@ def create_connection_pool():
 
     # Create Connection Pool
     pool = mariadb.ConnectionPool(pool_name = "testapp", pool_size  = pool_size, pool_reset_connection = False, **db_connection_params)
-    # print("Pool size of '%s': %s" % (pool.pool_name, pool.pool_size))
+    print("Creating DB connection pool '%s' of size %s" % (pool.pool_name, pool.pool_size), file=sys.stderr)
 
     # Return Connection Pool
     return pool
@@ -53,14 +53,14 @@ def create_connection_pool():
 def create_table(cursor):
     """Creates testing table"""
     try:
-        print(f"Creating table `{test_table_name}`: ... ", end='')
+        print(f"Creating table `{test_table_name}`: ... ", end='', file=sys.stderr)
         cursor.execute(TABLE_DDL)
-        print("success!")
+        print("success!", file=sys.stderr)
     except mariadb.OperationalError as e:
         if e.errno == ERR.ER_TABLE_EXISTS_ERROR:
-            print("already exists.")
+            print("already exists.", file=sys.stderr)
         else:
-            print(e.msg)
+            print(e.msg, file=sys.stderr)
 
 # insert a row with local date representation
 def insert_current_time(cursor):
@@ -87,7 +87,7 @@ def print_last_row(cursor):
         format_string = '%Y-%m-%d %H:%M:%S'
         for (id, datestr, created_at) in cursor:
             created_at_str = created_at.strftime(format_string)
-            print(", ".join([str(id), datestr, created_at_str]))
+            print(", ".join([str(id), datestr, created_at_str]), file=sys.stderr)
         return True
     except mariadb.InterfaceError as e:
         print(f"DB connection error: {e}", file=sys.stderr)
@@ -175,7 +175,7 @@ def main():
                 finally:
                     pconn = None
       
-    print("Job done.")
+    print("Job done.", file=sys.stderr)
     return 0
 
 if __name__ == "__main__":
