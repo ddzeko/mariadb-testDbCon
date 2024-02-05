@@ -25,7 +25,7 @@ db_connection_params = {
 pool_size = 5
 
 # additional parameters
-test_table_name = os.getenv("MYSQL_TEST_TBL", 'test1')
+test_table_name = os.getenv("MYSQL_TEST_TBL", 'test123')
 
 # table structure -- for automatic table creation
 TABLE_DDL = (
@@ -93,8 +93,9 @@ def print_last_row(cursor):
         print(f"DB connection error: {e}", file=sys.stderr)
         return False
 
-# Establish Pool Connection
+# Main procedure; creates table and runs transaction loop
 def main():
+    # Establish Pool Connection
     try:
         pool = create_connection_pool()
     except mariadb.PoolError as e:

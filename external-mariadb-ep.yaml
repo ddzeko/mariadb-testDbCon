@@ -1,0 +1,14 @@
+# given as a template, adapt to suit your needs
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: ${MYSQL_SERVICE}
+subsets:
+- addresses:
+  - ip: ${MYSQL_IPADDRESS}
+  ports:
+  - name: mysql
+    port: ${MYSQL_PORT}
+    protocol: TCP
+

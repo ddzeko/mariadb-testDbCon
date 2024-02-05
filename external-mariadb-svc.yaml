@@ -1,0 +1,19 @@
+# given as a template, adapt to suit your needs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${MYSQL_SERVICE}
+spec:
+  type: ClusterIP
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: mysql
+    port: ${MYSQL_PORT}
+    protocol: TCP
+    targetPort: ${MYSQL_PORT}
+  sessionAffinity: None
+
