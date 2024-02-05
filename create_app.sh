@@ -77,8 +77,8 @@ cat external-mariadb-svc.yaml external-mariadb-ep.yaml deployment.yaml | envsubs
 echo
 echo "You can undo this deployment using:"
 echo "  oc delete deploy mariadb-testdbcon"
-echo "  oc delete endpoint external-mariadb-service"
-echo "  oc delete service external-mariadb-service"
+echo "  oc delete ep external-mariadb-service"
+echo "  oc delete svc external-mariadb-service"
 echo 
 echo "This app by design deploys paused, start it using:"
 echo "  oc rollout resume deployment/mariadb-testdbcon"
